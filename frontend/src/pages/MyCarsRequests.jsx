@@ -238,7 +238,7 @@
 //                 <div className="flex-shrink-0">
 //                   {request.car.images && request.car.images.length > 0 ? (
 //                     <img
-//                       src={`http://localhost:5000/${request.car.images[0]}`}
+//                       src={`https://motormetrics-ai.onrender.com/${request.car.images[0]}`}
 //                       alt={request.car.brand}
 //                       className="h-20 w-20 object-cover rounded-lg"
 //                     />
@@ -464,7 +464,7 @@ const MyCarsRequests = () => {
                   <div className="flex items-start space-x-4">
                     {req.car.images?.[0] ? (
                       <img
-                        src={`http://localhost:5000/${req.car.images}`}
+                        src={`https://motormetrics-ai.onrender.com/${req.car.images}`}
                         alt={req.car.brand}
                         className="h-20 w-20 object-cover rounded-lg"
                       />

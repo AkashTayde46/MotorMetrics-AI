@@ -230,7 +230,7 @@
 //                 <div className="h-48 bg-gray-200 flex items-center justify-center">
 //                   {car.images && car.images.length > 0 ? (
 //                     <img
-//                       src={`http://localhost:5000/${car.images[0]}`}
+//                       src={`https://motormetrics-ai.onrender.com/${car.images[0]}`}
 //                       alt={car.title}
 //                       className="w-full h-full object-cover"
 //                     />

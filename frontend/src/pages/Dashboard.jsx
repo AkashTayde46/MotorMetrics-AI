@@ -196,7 +196,7 @@
 // //                       <div className="flex-shrink-0">
 // //                         {car.images && car.images.length > 0 ? (
 // //                           <img
-// //                             src={`http://localhost:5000/${car.images[0]}`}
+// //                             src={`https://motormetrics-ai.onrender.com/${car.images[0]}`}
 // //                             alt={car.title}
 // //                             className="h-16 w-16 object-cover rounded"
 // //                           />
@@ -269,7 +269,7 @@
 // //                       <div className="flex-shrink-0">
 // //                         {request.car.images && request.car.images.length > 0 ? (
 // //                           <img
-// //                             src={`http://localhost:5000/${request.car.images[0]}`}
+// //                             src={`https://motormetrics-ai.onrender.com/${request.car.images[0]}`}
 // //                             alt={request.car.title}
 // //                             className="h-16 w-16 object-cover rounded"
 // //                           />
@@ -332,7 +332,7 @@
 // //                       <div className="flex-shrink-0">
 // //                         {request.car.images && request.car.images.length > 0 ? (
 // //                           <img
-// //                             src={`http://localhost:5000/${request.car.images[0]}`}
+// //                             src={`https://motormetrics-ai.onrender.com/${request.car.images[0]}`}
 // //                             alt={request.car.title}
 // //                             className="h-16 w-16 object-cover rounded"
 // //                           />
@@ -581,7 +581,7 @@
 //                         {/* UPDATED LINE */}
 //                         {car?.images?.length > 0 ? (
 //                           <img
-//                             src={`http://localhost:5000/${car.images[0]}`}
+//                             src={`https://motormetrics-ai.onrender.com/${car.images[0]}`}
 //                             alt={car.title}
 //                             className="h-16 w-16 object-cover rounded"
 //                           />
@@ -655,7 +655,7 @@
 //                         {/* UPDATED LINE */}
 //                         {request.car?.images?.length > 0 ? (
 //                           <img
-//                             src={`http://localhost:5000/${request.car.images[0]}`}
+//                             src={`https://motormetrics-ai.onrender.com/${request.car.images[0]}`}
 //                             alt={request.car.title}
 //                             className="h-16 w-16 object-cover rounded"
 //                           />
@@ -719,7 +719,7 @@
 //                         {/* UPDATED LINE */}
 //                         {request.car?.images?.length > 0 ? (
 //                           <img
-//                             src={`http://localhost:5000/${request.car.images[0]}`}
+//                             src={`https://motormetrics-ai.onrender.com/${request.car.images[0]}`}
 //                             alt={request.car.title}
 //                             className="h-16 w-16 object-cover rounded"
 //                           />
@@ -973,7 +973,7 @@ const ListItems = ({ items, type }) => (
         <div className="flex-shrink-0">
           {(type === "car" && item.images?.length > 0) || (type !== "car" && item.car?.images?.length > 0) ? (
             <img
-              src={`http://localhost:5000/${type === "car" ? item.images[0] : item.car.images}`}
+              src={`https://motormetrics-ai.onrender.com/${type === "car" ? item.images[0] : item.car.images}`}
               alt={type === "car" ? item.brand : item.car.brand}
               className="h-16 w-16 object-cover rounded-md"
             />

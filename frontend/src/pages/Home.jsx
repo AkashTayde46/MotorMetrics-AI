@@ -236,7 +236,7 @@ const Home = () => {
                   <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
                     {car.images && car.images.length > 0 ? (
                       <img
-                        src={`http://localhost:5000/${car.images[0]}`}
+                        src={`https://motormetrics-ai.onrender.com/${car.images[0]}`}
                         alt={car.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />

@@ -1,13 +1,13 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://motormetrics-ai.onrender.com/api';
 
 async function testBackend() {
   try {
     console.log('Testing backend API...');
     
     // Test basic endpoint
-    const response = await axios.get('http://localhost:5000/');
+    const response = await axios.get('https://motormetrics-ai.onrender.com/');
     console.log('✅ Backend is running:', response.data);
     
     // Test auth endpoint

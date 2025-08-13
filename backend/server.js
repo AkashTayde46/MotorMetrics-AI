@@ -14,7 +14,10 @@ const userRoutes = require('./routes/users');
 dotenv.config({ path: './config.env' });
 
 const app = express();
-
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // e.g. https://your-frontend.vercel.app
+  credentials: true
+}));
 // Middleware
 app.use(cors());
 app.use(express.json());
