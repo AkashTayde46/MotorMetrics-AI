@@ -1,0 +1,321 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../contexts/AuthContext';
+import { Eye, EyeOff, User, Mail, Lock, Phone, MapPin } from 'lucide-react';
+
+const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { register: registerUser } = useAuth();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();
+
+  // This captures the selected user type value
+  const userType = watch('userType');
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    const result = await registerUser(data);
+    setIsLoading(false);
+    
+    if (result.success) {
+      navigate('/dashboard');
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-blue-100">
+            <User className="h-6 w-6 text-blue-600" />
+          </div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Create your account
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Or{' '}
+            <Link
+              to="/login"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              sign in to your existing account
+            </Link>
+          </p>
+        </div>
+        
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <div className="space-y-4">
+            {/* User Type Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                I want to:
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {/* First Option: Owner */}
+                <label 
+                  className={`relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ${
+                    userType === 'owner' 
+                      ? 'bg-blue-50 border-blue-500 ring-2 ring-blue-500' 
+                      : 'bg-white border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="owner"
+                    className="sr-only"
+                    {...register('userType', { required: 'Please select a user type' })}
+                  />
+                  <span className="flex flex-1">
+                    <span className="flex flex-col">
+                      <span className={`block text-sm font-medium ${
+                        userType === 'owner' ? 'text-blue-900' : 'text-gray-900'
+                      }`}>
+                        Rent/Sell My Car
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+                {/* Second Option: Buyer */}
+                <label 
+                  className={`relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none ${
+                    userType === 'buyer' 
+                      ? 'bg-blue-50 border-blue-500 ring-2 ring-blue-500' 
+                      : 'bg-white border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="buyer"
+                    className="sr-only"
+                    {...register('userType', { required: 'Please select a user type' })}
+                  />
+                  <span className="flex flex-1">
+                    <span className="flex flex-col">
+                      <span className={`block text-sm font-medium ${
+                        userType === 'buyer' ? 'text-blue-900' : 'text-gray-900'
+                      }`}>
+                        Rent/Buy a Car
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              {errors.userType && (
+                <p className="mt-1 text-sm text-red-600">{errors.userType.message}</p>
+              )}
+            </div>
+
+            {/* Name */}
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 border ${
+                    errors.name ? 'border-red-300' : 'border-gray-300'
+                  } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Enter your full name"
+                  {...register('name', {
+                    required: 'Name is required',
+                    minLength: {
+                      value: 2,
+                      message: 'Name must be at least 2 characters'
+                    }
+                  })}
+                />
+                <User className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+              </div>
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 border ${
+                    errors.email ? 'border-red-300' : 'border-gray-300'
+                  } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Enter your email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address'
+                    }
+                  })}
+                />
+                <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+              </div>
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 border ${
+                    errors.phone ? 'border-red-300' : 'border-gray-300'
+                  } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Enter your phone number"
+                  {...register('phone', {
+                    pattern: {
+                      value: /^[\+]?[1-9][\d]{0,15}$/,
+                      message: 'Invalid phone number'
+                    }
+                  })}
+                />
+                <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+              </div>
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+              )}
+            </div>
+
+            {/* Address */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                  City
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="city"
+                    name="address.city"
+                    type="text"
+                    className={`appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                    placeholder="City"
+                    {...register('address.city')}
+                  />
+                  <MapPin className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                  State
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="state"
+                    name="address.state"
+                    type="text"
+                    className={`appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                    placeholder="State"
+                    {...register('address.state')}
+                  />
+                  <MapPin className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                </div>
+              </div>
+            </div>
+
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="new-password"
+                  required
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 pr-10 border ${
+                    errors.password ? 'border-red-300' : 'border-gray-300'
+                  } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Create a password"
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                      value: 6,
+                      message: 'Password must be at least 6 characters'
+                    }
+                  })}
+                />
+                <Lock className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <Eye className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              ) : (
+                'Create Account'
+              )}
+            </button>
+          </div>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link
+                to="/login"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                Sign in here
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
