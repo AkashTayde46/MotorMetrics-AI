@@ -133,6 +133,12 @@ const Home = () => {
                 Get Started Free
               </Link>
               )}
+               <Link
+                to="/predict"
+                className="group relative bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 rounded-2xl font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 transform hover:scale-105"
+              >
+                Predict car resale value
+              </Link>
             </div>
           </div>
         </div>
