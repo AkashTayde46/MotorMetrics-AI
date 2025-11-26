@@ -73,22 +73,30 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL,           // Production frontend
-  'http://localhost:5173',            // Local dev frontend
+  'http://localhost:5173',               // Local dev
+  'https://motor-metrics-ai.vercel.app' // Production frontend
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
+    // Allow requests with no origin like mobile apps, curl, Postman
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `CORS policy: The origin ${origin} is not allowed.`;
-      return callback(new Error(msg), false);
+      return callback(new Error(`CORS policy: origin ${origin} not allowed`), false);
     }
     return callback(null, true);
   },
-  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
+
+// This ensures preflight OPTIONS requests are handled
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 
 // Middleware
 app.use(express.json());
