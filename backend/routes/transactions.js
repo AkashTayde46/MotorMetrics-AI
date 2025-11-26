@@ -85,6 +85,24 @@ router.get('/my-cars-requests', auth, async (req, res) => {
   }
 });
 
+// GET all requests made by the buyer (user)
+router.get('/buyer-requests', auth, async (req, res) => {
+  try {
+    const requests = await Transaction.find({
+      buyer: req.user._id   // BUYER FILTER
+    })
+      .populate('car')
+      .populate('seller', 'name email')
+      .sort('-createdAt');
+
+    res.json(requests);
+  } catch (error) {
+    console.error('Error getting buyer requests:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // Update transaction status
 router.put('/:id/status', auth, async (req, res) => {
   try {
