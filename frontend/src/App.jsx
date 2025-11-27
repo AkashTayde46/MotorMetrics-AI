@@ -17,6 +17,7 @@ import Profile from './pages/Profile';
 import Transaction from './pages/Transaction';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PredictorPage from './pages/PredictorPage';
+import EMICalculator from './pages/EMICalculator';
 import './App.css';
 
 function AppContent() {
@@ -35,6 +36,7 @@ function AppContent() {
           <Route path="/cars" element={<CarList />} />
           <Route path="/cars/:id" element={<CarDetail />} />
           <Route path="/predict" element={<PredictorPage />} />
+            <Route path="/emicalculator" element={<EMICalculator />} />
 
           {/* Protected Routes */}
           <Route

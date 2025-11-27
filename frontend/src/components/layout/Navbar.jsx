@@ -29,6 +29,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="predict">PricePredictor</Link>
+            <Link to="emicalculator">EMICalculator</Link>
             {!isOwner && (
               <Link to="/cars" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
                 Browse Cars
